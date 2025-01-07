@@ -19,10 +19,7 @@ func TestMainHandlerWhenCountMoreThanTotal(t *testing.T) {
 	handler.ServeHTTP(responseRecorder, req)
 	// здесь нужно добавить необходимые проверки
 	require.Equal(t, http.StatusOK, responseRecorder.Code)
-	var expectedCafes []string
-	for _, cafe := range cafeList["moscow"] {
-		expectedCafes = append(expectedCafes, cafe)
-	}
+	expectedCafes, _ := cafeList["moscow"]
 	returnCafes := strings.Split(responseRecorder.Body.String(), ",")
 	require.Len(t, returnCafes, len(expectedCafes))
 	assert.ElementsMatch(t, expectedCafes, returnCafes)
